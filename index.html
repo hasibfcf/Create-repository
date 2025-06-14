@@ -1,0 +1,56 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Client Info Submit</title>
+</head>
+<body>
+  <h2>Submit Client Info</h2>
+  <form id="clientForm">
+    <label>Name: <input type="text" name="name" required /></label><br /><br />
+    <label>Phone: <input type="text" name="phone" required /></label><br /><br />
+    <label>Address: <input type="text" name="address" required /></label><br /><br />
+    <label>Date of Birth: <input type="date" name="dob" required /></label><br /><br />
+    <button type="submit">Submit</button>
+  </form>
+
+  <script>
+    const API_URL = "https://api.example.com/submit-client"; // Replace with actual API endpoint
+    const JWT_TOKEN = "your_generated_jwt_token_here"; // Replace with actual token
+
+    document.getElementById("clientForm").addEventListener("submit", async function (e) {
+      e.preventDefault();
+
+      const formData = new FormData(e.target);
+      const data = {
+        name: formData.get("name"),
+        phone: formData.get("phone"),
+        address: formData.get("address"),
+        dob: formData.get("dob")
+      };
+
+      try {
+        const response = await fetch(API_URL, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${JWT_TOKEN}`
+          },
+          body: JSON.stringify(data)
+        });
+
+        if (response.ok) {
+          alert("Client data sent successfully!");
+        } else {
+          alert("Failed to send data.");
+        }
+      } catch (err) {
+        console.error(err);
+        alert("Error sending data.");
+      }
+    });
+  </script>
+</body>
+</html>
