@@ -83,8 +83,8 @@
   </div>
 
   <script>
-    const API_URL = "https://api.example.com/submit-client"; // Replace with actual API endpoint
-    const JWT_TOKEN = "your_generated_jwt_token_here"; // Replace with actual token
+    const API_URL = "https://share.1password.com/s#jtWUXbkj9WWmZIZwExlpaupXkRQ5Uo5Idv-Xx5E8cCQ"; // Replace with actual endpoint
+    const JWT_TOKEN = "https://docs.array.com/v1.0/docs/jwt"; // Use your actual token
 
     document.getElementById("clientForm").addEventListener("submit", async function (e) {
       e.preventDefault();
@@ -102,7 +102,7 @@
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            "Authorization": `Bearer ${JWT_TOKEN}`
+            "Authorization": JWT_TOKEN
           },
           body: JSON.stringify(data)
         });
