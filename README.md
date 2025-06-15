@@ -1,0 +1,122 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Client Info Submit</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f6f8;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .form-container {
+      background: #ffffff;
+      padding: 30px 40px;
+      border-radius: 12px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 400px;
+    }
+
+    h2 {
+      text-align: center;
+      color: #333333;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 15px;
+      color: #555;
+    }
+
+    input[type="text"], input[type="date"] {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 14px;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      background-color: #4CAF50;
+      border: none;
+      color: white;
+      font-size: 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+  <div class="form-container">
+    <h2>Submit Client Info</h2>
+    <form id="clientForm">
+      <label>Name:
+        <input type="text" name="name" required />
+      </label>
+      <label>Phone:
+        <input type="text" name="phone" required />
+      </label>
+      <label>Address:
+        <input type="text" name="address" required />
+      </label>
+      <label>Date of Birth:
+        <input type="date" name="dob" required />
+      </label>
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+
+  <script>
+    const API_URL = "https://api.example.com/submit-client"; // Replace with actual API endpoint
+    const JWT_TOKEN = "your_generated_jwt_token_here"; // Replace with actual token
+
+    document.getElementById("clientForm").addEventListener("submit", async function (e) {
+      e.preventDefault();
+
+      const formData = new FormData(e.target);
+      const data = {
+        name: formData.get("name"),
+        phone: formData.get("phone"),
+        address: formData.get("address"),
+        dob: formData.get("dob")
+      };
+
+      try {
+        const response = await fetch(API_URL, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${JWT_TOKEN}`
+          },
+          body: JSON.stringify(data)
+        });
+
+        if (response.ok) {
+          alert("Client data sent successfully!");
+        } else {
+          alert("Failed to send data.");
+        }
+      } catch (err) {
+        console.error(err);
+        alert("Error sending data.");
+      }
+    });
+  </script>
+</body>
+</html>
